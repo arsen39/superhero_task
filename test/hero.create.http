@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/heroes/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "nickname": "Joker",
+  "realName": "Arthur Fleck",
+  "originDescription": "The Joker falls into a vat of chemicals that bleaches his skin, colors his hair green and his lips red, and drives him insane. ",
+  "catchPhrase": "Lets put a smile on your face!"
+}
