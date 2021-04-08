@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Image.init({
-    nickname: {
+    name: {
       unique: true,
       allowNull: false,
       type: DataTypes.TEXT,
