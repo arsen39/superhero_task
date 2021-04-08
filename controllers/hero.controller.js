@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const { Hero } = require('../models');
+const { Hero, Superpower, Image } = require('../models');
 
 module.exports.createHero = async (req, res, next) => {
   try {
@@ -31,6 +31,45 @@ module.exports.getHero = async (req, res, next) => {
     }
 
     res.send(hero);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.addHeroSP = async (req, res, next) => {
+  try {
+     const {params: {id}, body:{powerId}} = req;
+
+    const hero = await Hero.findByPk(id);
+    const sp = await Superpower.findByPk(powerId);
+
+    if (!hero || !sp) {
+      const err = createError(404, 'Not found');
+      return next(err);
+    }
+
+    hero.addSuperpowers(sp);
+
+    res.send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.getHeroWithSP = async (req, res, next) => {
+  try {
+    const {params: {id}} = req;
+
+    const hero = await Hero.findByPk(id);
+
+    if (!hero) {
+      const err = createError(404, 'Hero not found');
+      return next(err);
+    }
+
+    const sp = await hero.getSuperpowers();
+
+    res.send({hero, sp});
   } catch (err) {
     next(err);
   }
