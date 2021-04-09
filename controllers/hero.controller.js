@@ -3,17 +3,9 @@ const { Hero, Superpower, Image } = require('../models');
 
 module.exports.createHero = async (req, res, next) => {
   try {
-    const { body } = req;
-    const createdHero = await Hero.create(body);
-
-    if (!createdHero) {
-      return next(createError(400));
-    }
-
+    const { body, files } = req;
     
-    res.status(201).send({
-      data: createdHero,
-    });
+    res.status(201).send({body, files});
   } catch (err) {
     next(err);
   }
